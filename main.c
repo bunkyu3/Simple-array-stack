@@ -13,6 +13,7 @@ int IsFullStack(struct ArrayStack *S);
 void Push(struct ArrayStack *S, int data);
 int Pop(struct ArrayStack *S);
 void PrintStack(struct ArrayStack *S);
+void DeleteStack(struct ArrayStack *S);
 
 int main(void){
 	struct ArrayStack *S;
@@ -30,6 +31,8 @@ int main(void){
 	Push(S, 5);
 	data = Pop(S);
 	printf("data %d is removed\n", data);
+	PrintStack(S);
+	DeleteStack(S);
 	PrintStack(S);
 	return 0;
 }
@@ -72,8 +75,20 @@ int Pop(struct ArrayStack *S){
 
 void PrintStack(struct ArrayStack *S){
 	int i;
-	for(i=0; i<=S->top; i++){
-		printf("%d\n", S->array[i]);
+	if(S->capacity == 0){
+		printf("There is no stack\n");
+	}else{
+		for(i=0; i<=S->top; i++){
+			printf("%d\n", S->array[i]);
+		}
 	}
 }
 
+void DeleteStack(struct ArrayStack *S){
+	if(S){
+		if(S->array){
+			free(S->array);
+		}
+		free(S);
+	}
+}
